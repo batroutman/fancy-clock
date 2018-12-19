@@ -11,21 +11,21 @@ function ClockComponent(targetId) {
     this.radius = 50;
     this.canvasHeight = 100;
     this.canvasWidth = 100;
-    this.canvasBackgroundColor = "#eee"
+    this.canvasBackgroundColor = "white"
     this.clockBackgroundColor = "white";
     this.ringColor = "black";
     this.ringWeight = 5;
-    this.hourColor = "red";
-    this.minuteColor = "blue";
+    this.hourColor = "black";
+    this.minuteColor = "black";
     this.hourDirection = CLOCKWISE;
     this.minuteDirection = COUNTER_CLOCKWISE;
-    this.hourPosition = 40;
-    this.minutePosition = 187;
+    this.hourPosition = 90;
+    this.minutePosition = 0;
     this.hourWeight = 7;
     this.minuteWeight = 7;
     this.hourScale = 0.7;
     this.minuteScale = 0.9;
-    this.frametime = 22; // (45 fps)
+    this.frametime = 50; // (45 fps)
 
     // methods
     this.drawClock = function(){
@@ -112,6 +112,9 @@ function ClockComponent(targetId) {
 
     this.transitionTo = function(hour, minute, duration) {
 
+        hour = this.mod(hour, 360);
+        minute = this.mod(minute, 360);
+
         // change in hour
         if (this.hourDirection == COUNTER_CLOCKWISE) {
             var hourChange;
@@ -192,10 +195,12 @@ function ClockComponent(targetId) {
 
 }
 
+/*
 var clock = new ClockComponent("clock");
-clock.setPositions(0, 90);
+
 setTimeout(function(){
-    clock.transitionTo(145, 0, 1000);
+    clock.transitionTo(145, 98, 3000);
 }, 1000);
 
 console.log("hello there");
+*/
