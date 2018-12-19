@@ -15,14 +15,17 @@ function ClockComponent(targetId) {
     this.clockBackgroundColor = "white";
     this.ringColor = "black";
     this.ringWeight = 5;
-    this.hourColor = "black";
-    this.minuteColor = "black";
+    this.hourColor = "red";
+    this.minuteColor = "blue";
     this.hourDirection = CLOCKWISE;
     this.minuteDirection = COUNTER_CLOCKWISE;
-    this.hourPosition = 0;
-    this.minutePosition = 90;
-    this.hourWeight = 5;
-    this.minuteWeight = 5;
+    this.hourPosition = 40;
+    this.minutePosition = 187;
+    this.hourWeight = 7;
+    this.minuteWeight = 7;
+    this.hourScale = 0.7;
+    this.minuteScale = 0.9;
+    this.frametime = 22; // (45 fps)
 
     // methods
     this.drawClock = function(){
@@ -33,19 +36,141 @@ function ClockComponent(targetId) {
         ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
         // draw ring
+        this.drawRing();
+
+        // draw hour hand
+        this.drawHourHand();
+
+        // draw minute hand
+        this.drawMinuteHand();
+
+    }
+
+    this.drawRing = function() {
+        var ctx = this.canvas.getContext("2d");
         ctx.lineWidth = this.ringWeight;
         ctx.beginPath();
         ctx.arc(this.canvasWidth / 2, this.canvasHeight / 2, this.radius, 0, 2 * Math.PI);
         ctx.strokeStyle = this.ringColor;
         ctx.stroke();
+    }
 
-        // draw hour hand
-        
+    this.drawHourHand = function() {
+        var ctx = this.canvas.getContext("2d");
+        ctx.lineWidth = this.hourWeight;
+        ctx.beginPath();
+        ctx.moveTo(this.canvasWidth / 2, this.canvasHeight / 2);
+        var lineToX = this.hourScale * this.radius * Math.cos(this.degToRad(-this.hourPosition)) + this.canvasWidth / 2;
+        var lineToY = this.hourScale * this.radius * Math.sin(this.degToRad(-this.hourPosition)) + this.canvasHeight / 2;
+        ctx.lineTo(lineToX, lineToY);
+        ctx.strokeStyle = this.hourColor;
+        ctx.stroke();
+    }
+
+    this.drawMinuteHand = function() {
+        var ctx = this.canvas.getContext("2d");
+        ctx.lineWidth = this.minuteWidth;
+        ctx.beginPath();
+        ctx.moveTo(this.canvasWidth / 2, this.canvasHeight / 2);
+        var lineToX = this.minuteScale * this.radius * Math.cos(this.degToRad(-this.minutePosition)) + this.canvasWidth / 2;
+        var lineToY = this.minuteScale * this.radius * Math.sin(this.degToRad(-this.minutePosition)) + this.canvasHeight / 2;
+        ctx.lineTo(lineToX, lineToY);
+        ctx.strokeStyle = this.minuteColor;
+        ctx.stroke();
+    }
+
+    this.degToRad = function(degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+    this.radToDeg = function(radians) {
+        return radians * 180 / Math.PI;
     }
 
     this.resetHeightWidth = function() {
         this.canvasHeight = 2 * this.radius + 2 * this.ringWeight;
         this.canvasWidth = 2 * this.radius + 2 * this.ringWeight;
+    }
+
+    this.setPositions = function(hour, minute) {
+        this.hourPosition = hour;
+        this.minutePosition = minute;
+        this.drawClock();
+    }
+
+    this.mod = function(n, m) {
+        return ((n % m) + m) % m;
+    }
+
+    this.setHourPosition = function(hour) {
+        this.hourPosition = this.mod(hour, 360);
+    }
+
+    this.setMinutePosition = function(minute) {
+        this.minutePosition = this.mod(minute, 360);
+    }
+
+    this.transitionTo = function(hour, minute, duration) {
+
+        // change in hour
+        if (this.hourDirection == COUNTER_CLOCKWISE) {
+            var hourChange;
+            if (hour < this.hourPosition) {
+                hourChange = 360 - (this.hourPosition - hour);
+            } else {
+                hourChange = hour - this.hourPosition
+            }
+            var frameHourChange = hourChange * this.frametime / duration;
+            this.setHourPosition(this.hourPosition + frameHourChange);
+        } else {
+            var hourChange;
+            if (hour > this.hourPosition) {
+                hourChange = 360 - (hour - this.hourPosition);
+            } else {
+                hourChange = this.hourPosition - hour;
+            }
+            var frameHourChange = hourChange * this.frametime / duration;
+            this.setHourPosition(this.hourPosition - frameHourChange);
+        }
+        
+        //change in minute
+        if (this.minuteDirection == COUNTER_CLOCKWISE) {
+            var minuteChange;
+            if (minute < this.minutePosition) {
+                minuteChange = 360 - (this.minutePosition - minute);
+            } else {
+                minuteChange = minute - this.minutePosition
+            }
+            var frameMinuteChange = minuteChange * this.frametime / duration;
+            this.setMinutePosition(this.minutePosition + frameMinuteChange);
+        } else {
+            var minuteChange;
+            if (minute > this.minutePosition) {
+                minuteChange = 360 - (minute - this.minutePosition);
+            } else {
+                minuteChange = this.minutePosition - minute;
+            }
+            var frameMinuteChange = minuteChange * this.frametime / duration;
+            this.setMinutePosition(this.minutePosition - frameMinuteChange);
+        }
+
+        // draw changes
+        this.drawClock();
+
+        //recursive call
+        if (duration - this.frametime > this.frametime){
+
+            var self = this;
+            setTimeout(function(){
+                self.transitionTo(hour, minute, duration - self.frametime);
+            }, this.frametime);
+
+        } else {
+            this.setHourPosition(hour);
+            this.setMinutePosition(minute);
+            this.drawClock();
+        }
+        
     }
 
     // intitialization
@@ -68,5 +193,9 @@ function ClockComponent(targetId) {
 }
 
 var clock = new ClockComponent("clock");
+clock.setPositions(0, 90);
+setTimeout(function(){
+    clock.transitionTo(145, 0, 1000);
+}, 1000);
 
 console.log("hello there");
