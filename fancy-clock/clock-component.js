@@ -8,7 +8,7 @@ function ClockComponent(targetId) {
     // properties
     this.canvas = undefined;
     this.id = targetId;
-    this.radius = 50;
+    this.radius = 40;
     this.canvasHeight = 100;
     this.canvasWidth = 100;
     this.canvasBackgroundColor = "white"
