@@ -9,3 +9,4 @@ function importScript(path) {
 
 importScript(prefix + "clock-component.js");
 importScript(prefix + "clock-number.js");
+importScript(prefix + "fancy-clock.js");
