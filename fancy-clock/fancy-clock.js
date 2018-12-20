@@ -27,10 +27,10 @@ function FancyClock(targetId) {
             this.table.appendChild(row);
         } else {
             // (stacked)
-            for(var row = 0; row < 2; row++) {
+            for(var row = 0; row < 4; row += 2) {
                 var rowEl = document.createElement("tr");
                 for(var col = 0; col < 2; col++) {
-                    rowEl.apppendChild(this.numbersEl[row + col]);
+                    rowEl.appendChild(this.numbersEl[row + col]);
                 }
                 this.table.appendChild(rowEl);
             }
