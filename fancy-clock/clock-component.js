@@ -8,7 +8,7 @@ function ClockComponent(targetId) {
     // properties
     this.canvas = undefined;
     this.id = targetId;
-    this.radius = 40;
+    this.radius = 50;
     this.canvasHeight = 100;
     this.canvasWidth = 100;
     this.canvasBackgroundColor = "white"
@@ -21,10 +21,10 @@ function ClockComponent(targetId) {
     this.minuteDirection = COUNTER_CLOCKWISE;
     this.hourPosition = 90;
     this.minutePosition = 0;
-    this.hourWeight = 7;
-    this.minuteWeight = 7;
-    this.hourScale = 0.7;
-    this.minuteScale = 0.9;
+    this.hourWeight = 8;
+    this.minuteWeight = 8;
+    this.hourScale = 0.8;
+    this.minuteScale = 0.95;
     this.frametime = 50; // (45 fps)
 
     // methods

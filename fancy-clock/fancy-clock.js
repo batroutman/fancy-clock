@@ -100,6 +100,7 @@ function FancyClock(targetId) {
         // generate numbers
         for(var i = 0; i < 4; i++) {
             this.numbers.push(new ClockNumber(this.id + "-num-" + i));
+            this.numbers[i].scramble();
         }
 
         // start loop
