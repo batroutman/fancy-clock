@@ -87,6 +87,11 @@ function ClockComponent(targetId) {
         return radians * 180 / Math.PI;
     }
 
+    this.setRadius = function(r) {
+        this.radius = (r >= 5) ? r : 5;
+        this.resetHeightWidth();
+    }
+
     this.resetHeightWidth = function() {
         this.canvasHeight = 2 * this.radius + 2 * this.ringWeight;
         this.canvasWidth = 2 * this.radius + 2 * this.ringWeight;

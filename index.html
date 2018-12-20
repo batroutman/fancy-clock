@@ -15,7 +15,7 @@
 
     </head>
 
-    <body>
+    <body onload="main()">
 
         <div id="clock">
             Hello World!
@@ -23,7 +23,10 @@
 
 
         <script>
-            //var clockComponent = new ClockComponent("clock");
+            function main() {
+                var clockNum = new ClockNumber("clock");
+                clockNum.changeNumber(1);
+            }
         </script>
 
     </body>
