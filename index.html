@@ -27,6 +27,10 @@
                 var clockNum = new ClockNumber("clock");
                 //clockNum.transitionToNumber(0, 5000);
                 clockNum.changeNumber(9);
+                clockNum.scrambleTransition(3000);
+                setTimeout(function(){
+                    clockNum.transitionToNumber(8, 3000);
+                }, 3000);
             }
         </script>
 

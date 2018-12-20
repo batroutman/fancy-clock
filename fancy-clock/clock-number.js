@@ -30,6 +30,26 @@ function ClockNumber(targetId) {
         }
     }
 
+    this.scramble = function() {
+        for(var row = 0; row < this.clocks.length; row++){
+            for(var col = 0; col < this.clocks[row].length; col++){
+                var hour = Math.floor(Math.random() * 360);
+                var minute = Math.floor(Math.random() * 360);
+                this.clocks[row][col].setPositions(hour, minute);
+            }
+        }
+    }
+
+    this.scrambleTransition = function(duration) {
+        for(var row = 0; row < this.clocks.length; row++){
+            for(var col = 0; col < this.clocks[row].length; col++){
+                var hour = Math.floor(Math.random() * 360);
+                var minute = Math.floor(Math.random() * 360);
+                this.clocks[row][col].transitionTo(hour, minute, duration);
+            }
+        }
+    }
+
     // initialization
     this.initPositions = function() {
         this.positions = new Array(10);
