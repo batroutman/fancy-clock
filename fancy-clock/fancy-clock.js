@@ -12,7 +12,7 @@ function FancyClock(targetId) {
     this.numbersEl = [];
     this.layout = "inline";
     this.loopInterval;
-    this.duration = 10000;
+    this.duration = 7000;
 
 
     // methods
@@ -75,10 +75,7 @@ function FancyClock(targetId) {
         // }
 
         for(var i = 0; i < 4; i++) {
-            var self = this;
-            setTimeout(function(self){
-                self.numbers[i].transitionToNumber(digits[i], self.duration / 2);
-            }(self), this.duration / 2);
+            this.numbers[i].transitionToNumber(digits[i], this.duration);
         }
 
     }
