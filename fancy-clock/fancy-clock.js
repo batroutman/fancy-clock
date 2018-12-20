@@ -69,10 +69,10 @@ function FancyClock(targetId) {
         digits.push(this.minute % 10);
 
         // transition each number
-        for(var i = 0; i < 4; i++) {
-            var self = this;
-            this.numbers[i].scrambleTransition(this.duration / 4);
-        }
+        // for(var i = 0; i < 4; i++) {
+        //     var self = this;
+        //     this.numbers[i].scrambleTransition(this.duration / 4);
+        // }
 
         for(var i = 0; i < 4; i++) {
             var self = this;
