@@ -13,7 +13,7 @@ function ClockComponent(targetId) {
     this.canvasWidth = 100;
     this.canvasBackgroundColor = "white"
     this.clockBackgroundColor = "white";
-    this.ringColor = "black";
+    this.ringColor = "#ddd";
     this.ringWeight = 5;
     this.hourColor = "black";
     this.minuteColor = "black";
@@ -85,6 +85,11 @@ function ClockComponent(targetId) {
 
     this.radToDeg = function(radians) {
         return radians * 180 / Math.PI;
+    }
+
+    this.setRadius = function(r) {
+        this.radius = (r >= 5) ? r : 5;
+        this.resetHeightWidth();
     }
 
     this.resetHeightWidth = function() {
