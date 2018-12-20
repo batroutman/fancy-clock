@@ -21,6 +21,15 @@ function ClockNumber(targetId) {
 
     }
 
+    this.transitionToNumber = function(number, duration) {
+        var config = this.positions[number];
+        for(var row = 0; row < this.clocks.length; row++){
+            for(var col = 0; col < this.clocks[row].length; col++){
+                this.clocks[row][col].transitionTo(config[row][col][0], config[row][col][1], duration);
+            }
+        }
+    }
+
     // initialization
     this.initPositions = function() {
         this.positions = new Array(10);
@@ -41,6 +50,15 @@ function ClockNumber(targetId) {
             [[230,200],[90,270],[90,270],[120,150]],
             [[0,270],[90,180],[90,0],[180,270]],
             [[0,90],[0,180],[0,180],[180,90]]
+        ];
+
+        this.positions[2] = [
+            [[0,270],[0,180],[180,0],[180,270]],
+            [[0,90],[180,0],[270,180],[270,90]],
+            [[0,270],[180,0],[90,180],[90,270]],
+            [[270,90],[270,0],[0,180],[180,90]],
+            [[90,270],[90,0],[0,180],[180,270]],
+            [[0,90],[0,180],[180,0],[180,90]]
         ];
     }
 

@@ -13,7 +13,7 @@ function ClockComponent(targetId) {
     this.canvasWidth = 100;
     this.canvasBackgroundColor = "white"
     this.clockBackgroundColor = "white";
-    this.ringColor = "grey";
+    this.ringColor = "#ddd";
     this.ringWeight = 5;
     this.hourColor = "black";
     this.minuteColor = "black";
