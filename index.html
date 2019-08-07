@@ -21,10 +21,24 @@
 
 
         <script>
+		
+            var globals = {};
+		
             function main() {
                 var clock = new FancyClock("clock");
                 clock.layout = "stacked";
                 clock.refreshTable();
+				globals.clock = clock;
+            }
+			
+            function stack() {
+                globals.clock.layout = "stacked";
+                globals.clock.refreshTable();
+            }
+			
+            function inline() {
+                globals.clock.layout = "inline";
+                globals.clock.refreshTable();
             }
         </script>
 
