@@ -40,6 +40,18 @@
                 globals.clock.layout = "inline";
                 globals.clock.refreshTable();
             }
+			
+			document.addEventListener('keypress', function(event) {
+				var event = event || window.event;
+				console.log('KEYCODE: ', event.keyCode);
+				if (event.keyCode === 105 && globals.clock.layout !== "inline") {
+					globals.clock.layout = "inline";
+					globals.clock.refreshTable();
+				} else if (event.keyCode === 115 && globals.clock.layout !== "stacked"){
+					globals.clock.layout = "stacked";
+					globals.clock.refreshTable();
+				}
+			});
         </script>
 
     </body>
